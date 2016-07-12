@@ -1,5 +1,6 @@
-defmodule Rumbl.SessionContoller do
+defmodule Rumbl.SessionController do
   use Rumbl.Web, :controller
+
   def new(conn, _) do
     render conn, "new.html"
   end
@@ -15,5 +16,11 @@ defmodule Rumbl.SessionContoller do
         |> put_flash(:error, "Invalid username/password combination")
         |> render("new.html")
     end
+  end
+
+  def delete(conn, _) do
+    conn
+    |> Rumbl.Auth.logout
+    |> redirect(to: page_path(conn, :index))
   end
 end
